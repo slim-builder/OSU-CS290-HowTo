@@ -1,0 +1,35 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>How To Guide for World Bank API Indicator Queries</title>
+  <link rel="stylesheet" type="text/css" href="howto.css">
+</head>
+<body>
+  <div>
+    <h1>How-To Guide for World Bank API Indicator Queries</h1>
+    <h2>Written By Steven Lim
+  </div>
+  <div>
+    <h2>Multi-Page Query Response</h2>
+    <h3>World Bank API Multi-Page Query Response</h3>
+    <p>For information about the page parameter for World Bank API queries,
+    <a href="http://data.worldbank.org/developers/api-overview/basic-call-structure">click here</a>.
+    </p>
+    <p>This page focuses on how to deal with the multi-page format of the API
+    response data.  In some cases, the amount of data returned from a query
+    may be too large to be returned in a single response.  For example, if you
+    query for a list of all possible data indicators, the total number of data
+    indicators provided by the World Bank API is 16,629!  This page will
+    demonstrate a way to obtain large amounts of query response data by
+    essentially breaking a single large query into several smaller queries using
+    the "page" and "pages" query parameters.
+    </p>
+    <form action="jsonp.html">
+      <input type="submit" value="Back">
+    </form>
+    <form action="snapshot.html">
+      <input type="submit" value="Next">
+    </form>
+  </div>
+</body>
+</html>

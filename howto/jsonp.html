@@ -1,7 +1,7 @@
 <!doctype html>
 <head>
   <meta charset="utf-8">
-  <title>Demo for How To Guide</title>
+  <title>How To Guide for World Bank API Indicator Queries</title>
   <link rel="stylesheet" type="text/css" href="howto.css">
 </head>
 <body>
@@ -10,34 +10,80 @@
     <h2>Written By Steven Lim
   </div>
   <div>
-    <h3>Introduction</h3>
-    <p>The <a href="http://www.worldbank.org">World Bank</a> provides several
-    APIs to allow access to its datasets.  One of those APIs involve Indicator
-    queries which allows the API user to retrieve various pieces of World Bank
-    data.
+    <h2>Same-Origin Policy, Cross-Origin Requests, and JSONP format</h2>
+    <h3>Same-Origin Policy and World Bank API Cross-Origin Requests</h3>
+    <p>For information about the same-origin security policy,
+    <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">click here</a>.
     </p>
-    <p>For example, the indicator called
-    "GDP (current US$)" represents the Gross Domestic Product of a country in US
-    dollars.  The API user can call the API with a query specifying the GDP
-    indicator, a country such as the United States, and a year such as 2010 to
-    obtain the 2010 United States GDP in units of US dollars.
+    <p>This page focuses on how to deal with the same-origin policy
+    issue specific to the World Bank API.  Basically, you may get an error
+    such as "Cross-Origin Request Blocked" when sending a request to the API.
+    This is because the origin (domain) of the requester (client) does not
+    match the origin (domain) of the API.  Any API request originating from
+    outside the "worldbank.org" domain is considered to be "cross-origin" which
+    violates the same-origin policy.  The preferred method to deal with
+    cross-origin requests is CORS but an explanation of CORS is outside the
+    scope of this guide.  We will discuss a simpler method for dealing with
+    cross-origin requests using the HTML &lt;script&gt; element and the JSONP
+    format.
     </p>
-    <p>The World Bank has some very good API documentation which explains
-       how to query for particular data indicators.
-      <a href="http://data.worldbank.org/developers/api-overview">
-        Click here
-      </a>
+    <h3>JSONP Format</h3>
+    <p>This guide assumes that you are familar with the JSON format.  The JSONP
+    format is a function call with a JSON data object passed into the function
+    as a parameter.  The function is the "padding" or "prefix" which wraps
+    around the JSON data object.  The 'P' in JSONP refers to the padding or
+    prefix.  The prefix function is defined by the client (API requestor).
+    When an API returns data in JSONP format, the prefix function is called
+    with JSON data passed to that function.  The World Bank API offers both
+    JSON and JSONP response formats.
     </p>
-    <p>This how-to guide is intended to address a couple of issues you may
-    encounter while using the World Bank API Indicator queries such as
-    same-origin policy restrictions and the multi-page API responses.
+    <h3>HTML &lt;script&gt; Element</h3>
+    <p>The HTML &lt;script&gt; element is used to bypass the same-origin
+    policy.  The script source should be set to the API query URL with the
+    JSONP format specified.  When the script is executed, the API will
+    call the prefix function with the JSON data passed to it.  The prefix
+    function will perform some actions using the JSON data.  Querying the API
+    with the JSON format will not work with the &lt;script&gt; element.
+    For example:
     </p>
-    <p>In addition, we will build a new indicator query of
-    our own based on the built-in indicator queries provided by the World Bank.
+    <div class="code">
+      &lt;script src="http://api.worldbank.org/countries?format=jsonP&prefix=getdata"&gt;
+    &lt;/script&gt;
+    </div>
+    <p>The code above will obtain a partial list of country codes available from
+    the World Bank API and call the "getdata" function defined by the client.
+    The list of country codes is passed as a single parameter to the getdata
+    function.  The getdata function will process the list of country codes in
+    whatever manner the client is interested in.
     </p>
-    <p>Finally, we will create a simple web application using our newly
-    created indicator query.</p>
+    <p>The &lt;script&gt; element described above may be appended to the HTML
+    document during runtime using Javascript.  The following Javascript code
+    shows the &lt;script&gt; element being appended to the document during
+    runtime and the getdata function print outs each country code to the
+    console.
     </p>
+    <div class="code">
+      var wbScript = document.createElement("script");<br/>
+      wbScript.src = "http://api.worldbank.org/countries?format=jsonP&prefix=getdata";<br/>
+      document.body.appendChild(wbScript);<br/><br/>
+      function getdata (jsonp) {
+      <br/>
+      <span class="tab"></span>var data = jsonp[1];
+      <br/>
+      <span class="tab"></span>for (var i = 0; i < data.length; i++)
+      <br/>
+      <span class="tab"></span>
+      <span class="tab"></span>
+      console.log(data[i].id);
+      <br/>
+      }
+    </div>
+    <form action="index.html">
+      <input type="submit" value="Back">
+    </form>
+    <form action="multi-page.html">
+      <input type="submit" value="Next">
+    </form>
   </div>
 </body>
 </html>
