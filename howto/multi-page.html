@@ -15,14 +15,65 @@
     <p>For information about the page parameter for World Bank API queries,
     <a href="http://data.worldbank.org/developers/api-overview/basic-call-structure">click here</a>.
     </p>
-    <p>This page focuses on how to deal with the multi-page format of the API
+    <p>This section focuses on how to deal with the multi-page format of the API
     response data.  In some cases, the amount of data returned from a query
-    may be too large to be returned in a single response.  For example, if you
-    query for a list of all possible data indicators, the total number of data
-    indicators provided by the World Bank API is 16,629!  This page will
-    demonstrate a way to obtain large amounts of query response data by
+    may be too large to be returned in a single response "page."  For example,
+    if you query for a list of all possible data indicators, the total number
+    of data indicators provided by the World Bank API is 16,629!  This section
+    will demonstrate a way to obtain large amounts of query response data by
     essentially breaking a single large query into several smaller queries using
     the "page" and "pages" query parameters.
+    </p>
+    <p>Take a look at the Javascript example below:</p>
+    <iframe height='500' scrolling='no'
+      src='http://codepen.io/slim3629/embed/wGbQja/?height=500&theme-id=0&default-tab=js,result&embed-version=2'
+      frameborder='no' allowtransparency='true' allowfullscreen='true'
+      style='width: 100%;'>
+      See the Pen
+      <a href='http://codepen.io/slim3629/pen/wGbQja/'>
+        WorldBankApiMultiPageResponse
+      </a>
+      by Steven Lim (
+      <a href='http://codepen.io/slim3629'>
+        @slim3629
+      </a>
+      ) on
+      <a href='http://codepen.io'>
+        CodePen
+      </a>.
+    </iframe>
+    <p>The example above creates three pull-down menus which allow the user
+    to select a topic, country, and year.  The three parameters will be used
+    to form an API query in the next section.  In the meantime, the example
+    code above shows how we can populate the lists of pull-down menu options
+    using API queries.  The responses to the API queries also happens to span
+    multiple pages.
+    </p>
+    <p>The most important function in the above code example and the rest of the
+    examples presented in this guide is the worldBankApiCall function.  The
+    worldBankApiCall function takes parameters such as the name of the JSONP
+    prefix function to be called, a partial URL query parameter string, the
+    year, and the page number.  These function parameters are combined into
+    a single URL query string which forms the API call structure.
+    </p>
+    <p>The get_topics and get_countries are the prefix functions specified in
+    the URL query string.  They are called as part of the JSONP-formatted
+    response and their respective response arrays of JSON data are passed in
+    to them as parameters.  The prefix functions parse out the data that we
+    are interested in, namely the topic ID, the topic value (description),
+    the country ID (code), and the country name.  For every response page
+    received, the prefix function copies the JSON data of interest into
+    another array. The copy operations to another array is necessary because
+    the data of interest may need to be accessible to other functions.
+    </p>
+    <p>For handling multi-page responses to a single URL query type, the API
+    response itself contains handy information such as the page number of
+    the current response page and the total number of response pages for a
+    given API query.  The prefix function uses that information to determine
+    whether or not it should send a request for the next page or stop the
+    page requests.  Once all the response pages are received and processed,
+    the prefix function populates the pull-menus with the correct list of
+    topic or country options.
     </p>
     <form action="jsonp.html">
       <input type="submit" value="Back">

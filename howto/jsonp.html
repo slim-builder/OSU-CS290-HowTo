@@ -15,7 +15,7 @@
     <p>For information about the same-origin security policy,
     <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">click here</a>.
     </p>
-    <p>This page focuses on how to deal with the same-origin policy
+    <p>This section focuses on how to deal with the same-origin policy
     issue specific to the World Bank API.  Basically, you may get an error
     such as "Cross-Origin Request Blocked" when sending a request to the API.
     This is because the origin (domain) of the requester (client) does not
@@ -56,28 +56,28 @@
     function.  The getdata function will process the list of country codes in
     whatever manner the client is interested in.
     </p>
-    <p>The &lt;script&gt; element described above may be appended to the HTML
-    document during runtime using Javascript.  The following Javascript code
+    <p>The &lt;script&gt; element described above may be appended to the DOM
+    content during runtime using Javascript.  The following Javascript code
     shows the &lt;script&gt; element being appended to the document during
-    runtime and the getdata function print outs each country code to the
-    console.
+    runtime and the getdata function print outs a list of country codes on the
+    page.
     </p>
-    <div class="code">
-      var wbScript = document.createElement("script");<br/>
-      wbScript.src = "http://api.worldbank.org/countries?format=jsonP&prefix=getdata";<br/>
-      document.body.appendChild(wbScript);<br/><br/>
-      function getdata (jsonp) {
-      <br/>
-      <span class="tab"></span>var data = jsonp[1];
-      <br/>
-      <span class="tab"></span>for (var i = 0; i < data.length; i++)
-      <br/>
-      <span class="tab"></span>
-      <span class="tab"></span>
-      console.log(data[i].id);
-      <br/>
-      }
-    </div>
+    <iframe height='285' scrolling='no'
+      src='http://codepen.io/slim3629/embed/ONYaWe/?height=285&theme-id=0&default-tab=js,result&embed-version=2'
+      frameborder='no' allowtransparency='true' allowfullscreen='true'
+      style='width: 100%;'>
+      See the Pen
+      <a href='http://codepen.io/slim3629/pen/ONYaWe/'>
+        WorldBankAPISimpleQuery
+      </a>
+      by Steven Lim (
+      <a href='http://codepen.io/slim3629'>
+        @slim3629
+      </a>) on
+      <a href='http://codepen.io'>
+        CodePen
+      </a>.
+    </iframe>
     <form action="index.html">
       <input type="submit" value="Back">
     </form>
