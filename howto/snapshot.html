@@ -10,8 +10,8 @@
     <h2>Written By Steven Lim
   </div>
   <div>
-    <h2>Country-Topic Snapshot in Time</h2>
-    <h3>Annual Topic Summary by Country</h3>
+    <h2>Building a Topic-Based Query - Part I</h2>
+    <h3>Snapshot of All Indicator Data for a Given Topic, Country, and Year</h3>
     <p>For information about World Bank API topic queries,
     <a href="http://data.worldbank.org/developers/api-overview/topic-queries">click here</a>.
     </p>
@@ -20,7 +20,7 @@
     and then displays the data for all of the indicators associated with the
     chosen topic.  The results are displayed in a table.
     </p>
-    <p>Take a look at the following example code below:
+    <p>Take a look at the following Javascript example code below:
     </p>
     <iframe height='500' scrolling='no'
       src='http://codepen.io/slim3629/embed/EKzdBW/?height=500&theme-id=0&default-tab=js,result&embed-version=2'
@@ -38,8 +38,11 @@
         CodePen
       </a>.
     </iframe>
-    <p>
-      
+    <p>The example code above adds a "Get Data" button to the pull-down menus
+    developed in the previous section.  Upon clicking the button, the
+    application generates a table containing columns for the user-specified
+    year and topic, the indicator code, the indicator description, and the
+    indicator data values for the user-specified country.
     </p>
     <form action="multi-page.html">
       <input type="submit" value="Back">
