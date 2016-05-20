@@ -25,3 +25,25 @@ h1, h2, p, input {
 .tab {
   padding-left: 30px;
 }
+
+.nav_next_button {
+  width: 150px;
+  height: 60px;
+  border: solid black 2px;
+  border-radius: 30px;
+  background-color: lightblue;
+  text-align: center;
+}
+
+.nav_back_button {
+  width: 150px;
+  height: 60px;
+  border: solid black 2px;
+  border-radius: 30px;
+  background-color: lightgreen;
+  text-align: center;
+}
+
+.button_text {
+  vertical-align: middle;
+}

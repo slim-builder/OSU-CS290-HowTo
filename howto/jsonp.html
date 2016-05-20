@@ -16,26 +16,27 @@
     <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">click here</a>.
     </p>
     <p>This section focuses on how to deal with the same-origin policy
-    issue specific to the World Bank API.  Basically, you may get an error
-    such as "Cross-Origin Request Blocked" when sending a request to the API.
-    This is because the origin (domain) of the requester (client) does not
-    match the origin (domain) of the API.  Any API request originating from
-    outside the "worldbank.org" domain is considered to be "cross-origin" which
-    violates the same-origin policy.  The preferred method to deal with
-    cross-origin requests is CORS but an explanation of CORS is outside the
+    issue specific to the World Bank API.  The same-origin policy is implemented
+    on the server side and requires that the origin (domain) of the requester
+    (client) match the origin (domain) of the API.  Any API request originating
+    from outside the "worldbank.org" domain is considered to be "cross-origin"
+    and in violation of the same-origin policy of the World Bank API server.
+    You may see errors on the browser console log such as "Cross-Origin Request
+    Blocked" when sending a cross-origin request.  The preferred method to deal
+    with cross-origin requests is CORS but an explanation of CORS is outside the
     scope of this guide.  We will discuss a simpler method for dealing with
     cross-origin requests using the HTML &lt;script&gt; element and the JSONP
     format.
     </p>
     <h3>JSONP Format</h3>
     <p>This guide assumes that you are familar with the JSON format.  The JSONP
-    format is a function call with a JSON data object passed into the function
+    format is a function call with JSON data passed into the function
     as a parameter.  The function is the "padding" or "prefix" which wraps
-    around the JSON data object.  The 'P' in JSONP refers to the padding or
-    prefix.  The prefix function is defined by the client (API requestor).
-    When an API returns data in JSONP format, the prefix function is called
-    with JSON data passed to that function.  The World Bank API offers both
-    JSON and JSONP response formats.
+    around the JSON data.  The 'P' in JSONP refers to the padding or
+    prefix.  The prefix function is defined by the client (API requestor) as a
+    parameter in the URL query string.  When an API returns data in JSONP
+    format, the prefix function is called with JSON data passed to that
+    function.  The World Bank API offers both JSON and JSONP response formats.
     </p>
     <h3>HTML &lt;script&gt; Element</h3>
     <p>The HTML &lt;script&gt; element is used to bypass the same-origin
@@ -78,12 +79,14 @@
         CodePen
       </a>.
     </iframe>
-    <form action="index.html">
-      <input type="submit" value="Back">
-    </form>
-    <form action="multi-page.html">
-      <input type="submit" value="Next">
-    </form>
+    <div id="page3" class="nav_next_button"><p class="button_text">Next</p></div><br/>
+    <div id="page1" class="nav_back_button"><p class="button_text">Back</p></div>
+    <script>
+      var next = document.getElementById("page3");
+      next.onclick=function(){window.location = "multi-page.html";return false;};
+      var back = document.getElementById("page1");
+      back.onclick=function(){window.location = "index.html";return false;};
+    </script>
   </div>
 </body>
 </html>

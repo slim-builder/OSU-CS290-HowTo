@@ -18,7 +18,12 @@
     <p>This section demonstrates how to create a simple web application which
     allows the user to choose a topic, country, and year with pull-down menus
     and then displays the data for all of the indicators associated with the
-    chosen topic.  The results are displayed in a table.
+    chosen topic.  The results are displayed in a table.  The purpose of the
+    application is to create and use a new kind of topic-based query for
+    gathering all the indicator data for a specific topic.  The application
+    presented in this section happens to display data for a single country and
+    year which may be viewed as an annual "snapshot" of a country's
+    data for a given topic.
     </p>
     <p>Take a look at the following Javascript example code below:
     </p>
@@ -44,12 +49,54 @@
     year and topic, the indicator code, the indicator description, and the
     indicator data values for the user-specified country.
     </p>
-    <form action="multi-page.html">
-      <input type="submit" value="Back">
-    </form>
-    <form action="compare.html">
-      <input type="submit" value="Next">
-    </form>
+    <p>One of the most important points is that each successive World Bank API
+    request in the example is synchronous.  This is because there is only one
+    event ("Get Data" button click) associated with a large number of API
+    requests (many indicator queries).  Keep in mind that the list of indicator
+    codes for a topic are being looped through to create the API requests.
+    Since the data from each API response corresponds to a particular indicator
+    code (table row) and the API responses do not always contain the indicator
+    code within them, then the API response data must be received and processed
+    in order and stored in an ordered array.  Therefore the example web
+    application may load its data value column (the rightmost column of the
+    table) very slowly since the application must wait for an API response from
+    the previous API request before sending out the next API request.
+    </p>
+    <p>The World Bank API server also appears to have a security measure which
+    limits the number of requests which can be made within a fixed time period.
+    This is the reason why the setTimeout function is used in the prefix
+    functions named "get_data1."  The calls to setTimeout specify a 300
+    millisecond delay before making each successive API request in order to
+    stay below the API request limit.  The security measure may also contribute
+    to the slow load times of the application results.
+    </p>
+    <p>The drawTable function also immediately displays the table with the
+    user-selected year, user-selected topic, topic indicator code, and topic
+    indicator description columns populated with values from the
+    indicatorsArray and year and topicText variables.  The rightmost column
+    values are not displayed until all of the API response data have been
+    received and stored in the dataArray1 array.  The displayData1 function
+    populates the rightmost table column with the proper indicator data.
+    The displayData1 function also prints out "N/A" whenever it encounters
+    a null value.  The API returns a null value when the indicator data is not
+    available.
+    </p>
+    <h3>Possible Improvement</h3>
+    <p>One possible improvement would be to use asynchronous calls to the
+    API in order to improve overall load time.  One way to implement
+    asynchronous calls would be to add a unique "Get Data" button next to each
+    table row which would fetch the data pertaining to a single indicator.
+    In this way, there would be many more unique button click events on which
+    the application could make asynchronous API requests.
+    </p>
+    <div id="page5" class="nav_next_button"><p class="button_text">Next</p></div><br/>
+    <div id="page3" class="nav_back_button"><p class="button_text">Back</p></div>
+    <script>
+      var next = document.getElementById("page5");
+      next.onclick=function(){window.location = "compare.html";return false;};
+      var back = document.getElementById("page3");
+      back.onclick=function(){window.location = "multi-page.html";return false;};
+    </script>
   </div>
 </body>
 </html>

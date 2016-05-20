@@ -37,9 +37,11 @@
     <p>Finally, we will create a simple web application using our newly
     created topic-based query.</p>
     </p>
-    <form action="jsonp.html">
-      <input type="submit" value="Next">
-    </form>
+    <div id="page2" class="nav_next_button"><p class="button_text">Next</p></div>
+    <script>
+      var next = document.getElementById("page2");
+      next.onclick=function(){window.location = "jsonp.html";return false;};
+    </script>
   </div>
 </body>
 </html>

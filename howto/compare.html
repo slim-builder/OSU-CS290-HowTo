@@ -13,8 +13,18 @@
     <h2>Building a Topic-Based Query - Part II</h2>
     <h3>Side-by-side Country Comparison of Indicator Data Snapshots</h3>
     <p>This section demonstrates how to extend the web application described
-    in the previous page to provide a side-by-side indicator comparison of two
-    countries for a specific topic and year.
+    in the previous section to provide a side-by-side topic comparison of two
+    countries for a specific year.  Another variation of an extended web
+    application would be a side-by-side comparison of topic data from the same
+    country but between two different years.
+    </p>
+    <p style="font-weight: bold;">
+    Warning: The application below may take a very long time (many minutes) to
+    finally load all the indicator data values.  Some topics like "Education"
+    have a huge dataset size.  Try testing the application with smaller topics
+    such as "Millenium development goals" or "Science &amp; Technology."
+    </p>
+    <p>Check out the following Javascript code below:
     </p>
     <iframe height='500' scrolling='no'
       src='http://codepen.io/slim3629/embed/jqoeQg/?height=500&theme-id=0&default-tab=js,result&embed-version=2'
@@ -24,9 +34,28 @@
       <a href='http://codepen.io/slim3629'>@slim3629</a>
       ) on <a href='http://codepen.io'>CodePen</a>.
     </iframe>
-    <form action="snapshot.html">
-      <input type="submit" value="Back">
-    </form>
+    <p>The code above is very similar to the code in the previous section but
+    extended to handle two countries worth of data instead of one.  Again, the
+    API requests are called synchronously with the application querying for
+    data to populate one table column (Country #1 indicator data) followed by
+    data queries for Country #2 indicator data.  Note that the application only
+    displays the data values once all of the data for both countries are
+    received and stored in their respective arrays (dataArray1 and dataArray2).
+    </p>
+    <h3>Another Possible Comparison Application</h3>
+    <p>One possible comparison application would be a graph wizard application
+    which could produce graphs of topic data with respect to time for a given
+    country.  For example, you could create a graph of GDP for the USA from
+    year 2000 to year 2005.
+    </p>
+    <h2>The End</h2>
+    <p>I hope you enjoyed reading this how-to guide for creating and using
+    a topic-based query of the World Bank API Indicators.</p>
+    <div id="page4" class="nav_back_button"><p class="button_text">Back</p></div>
+    <script>
+      var back = document.getElementById("page4");
+      back.onclick=function(){window.location = "snapshot.html";return false;};
+    </script>
   </div>
 </body>
 </html>

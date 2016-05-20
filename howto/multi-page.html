@@ -75,12 +75,14 @@
     the prefix function populates the pull-menus with the correct list of
     topic or country options.
     </p>
-    <form action="jsonp.html">
-      <input type="submit" value="Back">
-    </form>
-    <form action="snapshot.html">
-      <input type="submit" value="Next">
-    </form>
+    <div id="page4" class="nav_next_button"><p class="button_text">Next</p></div><br/>
+    <div id="page2" class="nav_back_button"><p class="button_text">Back</p></div>
+    <script>
+      var next = document.getElementById("page4");
+      next.onclick=function(){window.location = "snapshot.html";return false;};
+      var back = document.getElementById("page2");
+      back.onclick=function(){window.location = "jsonp.html";return false;};
+    </script>
   </div>
 </body>
 </html>
